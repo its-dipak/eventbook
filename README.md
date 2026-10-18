@@ -2,8 +2,8 @@
 
 A small event booking app. An admin publishes events with a fixed number of seats, visitors can browse without logging in, and registered users can book a seat and cancel later. Seats are never overbooked.
 
-- **Live app:** `<YOUR VERCEL URL>`
-- **API:** `<YOUR RENDER URL>` (health check: `/health`)
+- **Live app:** `https://eventbook-nu.vercel.app`
+- **API:** `https://eventbook-api-obnm.onrender.com` (health check: `/health`)
 - **Repository layout:** `backend/` (Express API) and `frontend/` (Next.js UI). They are fully separate: the frontend never talks to the database, and Next.js has no API routes or server actions.
 
 > Free-tier note: the API sleeps after inactivity on Render's free plan, so the **first request can take about 30–60 seconds**. If the event list looks stuck at first load, wait a moment and it will appear.
@@ -117,4 +117,12 @@ The tests cover: double booking, overbooking when many users book the last seat 
 
 ## How AI was used
 
-<!-- Write this section in your own words. Be honest about which tools you used and which parts you wrote or changed yourself. -->
+I used Claude (Anthropic's AI assistant) throughout this project, and I want to be clear about how.
+
+**What AI did:** Claude helped me plan the architecture (the separate Express API and Next.js frontend, the three-table data model, and the transaction-based seat locking), and wrote the first version of the backend, the frontend, the automated tests, and a draft of this README.
+
+**What I did:** I created the Supabase, Render, GitHub and Vercel accounts and set up the database connection and environment variables. I ran the app locally, then deployed it and tested the live site myself: sign-up, login, booking, cancelling, and the admin pages. I fixed configuration problems as they came up, such as the CORS settings and the environment variables on Vercel and Render.
+
+**Understanding the code:** I read through the booking logic in `backend/src/routes/bookings.ts` and can explain it: the event row is locked with `SELECT ... FOR UPDATE` inside a transaction, so two people booking the last seat are processed one after the other, and a partial unique index in the database blocks a duplicate booking by the same user.
+
+**Commit history:** The commits were created with Claude's help, so they show Claude as a co-author.
