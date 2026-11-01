@@ -6,6 +6,16 @@ A small event booking app. An admin publishes events with a fixed number of seat
 - **API:** `https://eventbook-api-obnm.onrender.com` (health check: `/health`)
 - **Repository layout:** `backend/` (Express API) and `frontend/` (Next.js UI). They are fully separate: the frontend never talks to the database, and Next.js has no API routes or server actions.
 
+## Screenshots
+
+| Browse and search events | Book or cancel a seat |
+| --- | --- |
+| ![Event list with search and Upcoming/Past tabs](screenshots/events.png) | ![Event page after booking a seat](screenshots/booking.png) |
+
+**Admin: manage events and see seats booked**
+
+![Admin event table](screenshots/admin.png)
+
 > Free-tier note: the API sleeps after inactivity on Render's free plan, so the **first request can take about 30–60 seconds**. If the event list looks stuck at first load, wait a moment and it will appear.
 
 ## Test accounts
